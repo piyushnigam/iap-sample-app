@@ -1,0 +1,15 @@
+{
+  "name": "iap-onprem-sample-app",
+  "version": "1.0.0",
+  "description": "Sample app for testing IAP onprem deployments. It serves on the 50000 port, and dumps all request headers as json response.",
+  "main": "server.js",
+  "scripts": {
+    "test": "curl localhost:50000",
+    "start": "node server.js"
+  },
+  "author": "piyushn@google.com",
+  "license": "ISC",
+  "dependencies": {
+    "argparse": "^1.0.10"
+  }
+}
