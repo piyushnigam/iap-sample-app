@@ -2,6 +2,8 @@
  * @fileoverview Simple http server that dumps out all the incoming request
  * headers as json response.
  */
+
+var jwt_decode = require('jwt-decode')
 var http = require('http');  // 1 - Import Node.js code module
 var ArgumentParser = require('argparse').ArgumentParser;
 
@@ -19,8 +21,18 @@ parser.addArgument(['--port'], {
 
 var server = http.createServer(function(req, res) {  // 2 - creating server
   res.setHeader('Content-Type', 'application/json');
-  console.debug(JSON.stringify({headers: req.headers}, null, '  '));
-  res.end(JSON.stringify({headers: req.headers}, null, '  '));
+  var payload = '';
+  if (req.headers['x-goog-iap-jwt-assertion']) {
+    try {
+      payload = jwt_decode(req.headers['x-goog-iap-jwt-assertion']);
+    } catch (e) {
+      payload = 'INVALID_JWT';
+    }
+  }
+
+  console.debug(payload);
+  console.debug(JSON.stringify({headers: req.headers, iap_jwt_payload: payload}, null, '  '));
+  res.end(JSON.stringify({headers: req.headers, iap_jwt_paylaod: payload}, null, '  '));
 });
 
 var args = parser.parseArgs();
