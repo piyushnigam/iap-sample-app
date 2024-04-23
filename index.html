@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #3498db;
+    margin-bottom: 15px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 25px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9; 
+}
+
+pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+#code-box {
+    //width: 400px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px;
+    transition: max-height 0.5s ease;
+    text-align: left;
+}
+
+.hidden-code-box {
+    max-height: 0; /* Starts hidden  */
+    display: none;
+}
+
+.expanded-code-box {
+    max-height: 500px; /* Adjust as needed when expanded */
+}
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome!</h1>
+        <p>We're excited to have you here.</p>
+
+        <button id="explore-button">Inspect Headers</button>
+
+        <div id="code-box" class="hidden-code-box">
+<pre><code>
+
+__IAP_HEADERS_HERE__
+
+</code></pre>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+// Subtle text animation
+const title = document.querySelector('h1');
+title.textContent = title.textContent.split('').join(' ');
+
+// Particle effect (optional)
+// You might need a library like particles.js 
+// to achieve a complex particle effect
+
+const exploreButton = document.getElementById('explore-button');
+const codeBox = document.getElementById('code-box');
+
+exploreButton.addEventListener('click', function() {
+    codeBox.classList.toggle('hidden-code-box');
+    codeBox.classList.toggle('expanded-code-box');
+
+    // Change button text (optional)
+    if (this.textContent === 'Inspect Headers') {
+        this.textContent = 'Hide Headers';
+    } else {
+        this.textContent = 'Inspect Headers';
+    }
+});
+
+</script>
+</body>
+</html>

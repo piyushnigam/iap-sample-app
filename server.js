@@ -6,6 +6,9 @@
 var jwt_decode = require('jwt-decode')
 var http = require('http');  // 1 - Import Node.js code module
 var ArgumentParser = require('argparse').ArgumentParser;
+var html_encode = require('html-entities').encode;
+const fs = require('fs')
+const html_response = fs.readFileSync('index.html', 'utf8')
 
 var parser = new ArgumentParser({
   version: '0.0.1',
@@ -30,9 +33,16 @@ var server = http.createServer(function(req, res) {  // 2 - creating server
     }
   }
 
-  console.debug(payload);
-  console.debug(JSON.stringify({headers: req.headers, iap_jwt_payload: payload}, null, '  '));
-  res.end(JSON.stringify({headers: req.headers, iap_jwt_paylaod: payload}, null, '  '));
+  // Uncomment for debugging //
+  // console.debug(payload);
+  // console.debug(JSON.stringify({headers: req.headers, iap_jwt_payload: payload}, null, '  '));
+  // console.debug(html_encode(JSON.stringify({headers:req.headers, iap_jwt_payload: payload}, null, '  ')));
+  // console.debug(html_response.replace('__IAP_HEADERS_HERE__', html_encode(JSON.stringify({headers:req.headers, iap_jwt_payload: payload}, null, '  '))));
+
+  // Write response
+  res.writeHeader(200, {"Content-Type": "text/html"});  
+  res.write(html_response.replace('__IAP_HEADERS_HERE__', html_encode(JSON.stringify({headers:req.headers, iap_jwt_payload: payload}, null, '  '))));
+  res.end();
 });
 
 var args = parser.parseArgs();
